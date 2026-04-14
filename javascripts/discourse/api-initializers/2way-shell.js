@@ -273,7 +273,75 @@ function ensureSidebarBrand() {
   });
 }
 
-function ensureProductNav() {
+function closeMobileDrawer() {
+  const toggle = document.querySelector(
+    "[aria-label='Navigation menu'], .header-sidebar-toggle, .btn-sidebar-toggle"
+  );
+
+  if (toggle instanceof HTMLElement) {
+    toggle.click();
+  }
+}
+
+function ensureMobileDrawerHeader() {
+  const desktop = window.matchMedia("(min-width: 1000px)").matches;
+  const sections = document.querySelectorAll(
+    ".hamburger-panel .sidebar-sections, .sidebar-hamburger-dropdown .sidebar-sections"
+  );
+
+  if (desktop || !sections.length) {
+    document
+      .querySelectorAll(".two-way-mobile-drawer-header")
+      .forEach((node) => node.remove());
+    return;
+  }
+
+  const runtimeTheme = window.TwoWayTheme || {};
+  const fallbackLogo =
+    document.querySelector("#site-logo")?.currentSrc ||
+    document.querySelector("#site-logo")?.getAttribute("src") ||
+    "";
+  const mobileLogo =
+    runtimeTheme.mobileLogoUrl ||
+    settings.mobile_logo_url ||
+    runtimeTheme.sidebarLogoUrl ||
+    settings.sidebar_logo_url ||
+    fallbackLogo;
+
+  sections.forEach((section) => {
+    if (section.querySelector(".two-way-mobile-drawer-header")) {
+      return;
+    }
+
+    const header = document.createElement("div");
+    header.className = "two-way-mobile-drawer-header";
+    header.innerHTML = `
+      <a class="two-way-mobile-drawer-header__brand" href="/" aria-label="2Way home">
+        <img class="two-way-mobile-drawer-header__image" alt="2Way" src="${mobileLogo}">
+      </a>
+      <button class="two-way-mobile-drawer-header__close" type="button" aria-label="Close navigation menu">
+        <span class="material-icons-round">close</span>
+      </button>
+    `;
+
+    if (!runtimeTheme.mobileLogoUrl && !settings.mobile_logo_url) {
+      header
+        .querySelector(".two-way-mobile-drawer-header__brand")
+        ?.classList.add("two-way-sidebar-brand--filter");
+    }
+
+    header
+      .querySelector(".two-way-mobile-drawer-header__close")
+      ?.addEventListener("click", (event) => {
+        event.preventDefault();
+        closeMobileDrawer();
+      });
+
+    section.prepend(header);
+  });
+}
+
+function ensureProductNav(api) {
   const body = document.body;
   const sections = document.querySelectorAll(
     ".sidebar-wrapper .sidebar-sections, .sidebar-container .sidebar-sections, .hamburger-panel .sidebar-sections, .sidebar-hamburger-dropdown .sidebar-sections"
@@ -356,10 +424,17 @@ function ensureProductNav() {
       productNav.appendChild(groupNode);
     });
 
-    const anchor = section.querySelector(".two-way-sidebar-brand");
+    const desktopAnchor = section.querySelector(".two-way-sidebar-brand");
+    const mobileAnchor = section.querySelector(".two-way-mobile-drawer-header");
 
-    if (anchor?.nextSibling) {
-      section.insertBefore(productNav, anchor.nextSibling);
+    if (desktopAnchor?.nextSibling) {
+      section.insertBefore(productNav, desktopAnchor.nextSibling);
+    } else if (mobileAnchor?.nextSibling) {
+      section.insertBefore(productNav, mobileAnchor.nextSibling);
+    } else if (desktopAnchor) {
+      section.appendChild(productNav);
+    } else if (mobileAnchor) {
+      section.appendChild(productNav);
     } else if (section.firstChild) {
       section.insertBefore(productNav, section.firstChild);
     } else {
@@ -584,7 +659,8 @@ function ensureHeaderContext() {
 function refreshShell(api) {
   requestAnimationFrame(() => {
     ensureSidebarBrand();
-    ensureProductNav();
+    ensureMobileDrawerHeader();
+    ensureProductNav(api);
     ensureHeaderContext();
     ensureSidebarFooter(api);
   });

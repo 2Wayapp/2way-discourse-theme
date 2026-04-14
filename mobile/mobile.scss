@@ -85,6 +85,12 @@ html.anon .contents.body-page button.login-button {
   overflow: hidden;
 }
 
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel {
+  width: 88vw !important;
+  max-width: 20rem !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel,
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body,
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body-contents,
@@ -99,4 +105,66 @@ html.anon .contents.body-page button.login-button {
   display: flex;
   flex-direction: column;
   padding: 0 16px 24px;
+}
+
+.two-way-mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  margin: 0 -16px 1.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--two-way-sidebar-header-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.two-way-mobile-drawer-header__brand {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.two-way-mobile-drawer-header__image {
+  display: block;
+  width: auto;
+  max-width: 112px;
+  max-height: 40px;
+  object-fit: contain;
+}
+
+.two-way-mobile-drawer-header__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--two-way-sidebar-muted);
+}
+
+.two-way-mobile-drawer-header__close:hover,
+.two-way-mobile-drawer-header__close:focus {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.two-way-mobile-drawer-header__close .material-icons-round {
+  font-size: 20px;
+}
+
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .two-way-product-nav {
+  padding-bottom: 1rem;
+}
+
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .two-way-sidebar-footer {
+  margin: auto -16px -24px;
+  padding-top: 0;
+}
+
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .two-way-sidebar-footer__inner {
+  min-height: 76px;
+  padding: 1rem;
 }
