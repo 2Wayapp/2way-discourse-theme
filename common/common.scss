@@ -615,6 +615,20 @@ select:focus,
   color: #fff;
 }
 
+.sidebar-sections.admin-panel {
+  background: var(--two-way-sidebar-bg);
+}
+
+.sidebar-sections.admin-panel .sidebar-panel-header,
+.sidebar-sections.admin-panel .sidebar-panel-header__row,
+.sidebar-sections.admin-panel .sidebar-section-wrapper {
+  background: transparent;
+}
+
+.sidebar-sections.admin-panel .sidebar-section-wrapper {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
 .sidebar-sections.admin-panel .sidebar-search__input::placeholder,
 .sidebar-sections.admin-panel .sidebar-section-header-search .filter-input::placeholder {
   color: rgba(248, 250, 252, 0.7);
