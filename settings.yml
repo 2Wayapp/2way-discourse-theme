@@ -1,0 +1,23 @@
+webapp_url:
+  default: "https://app.2way.is"
+
+forms_url:
+  default: ""
+
+forms_label:
+  default: "Forms"
+
+forms_icon_url:
+  default: ""
+
+sidebar_logo_url:
+  default: ""
+
+mobile_logo_url:
+  default: ""
+
+show_forms_header_link:
+  default: false
+
+match_webapp_sidebar:
+  default: true

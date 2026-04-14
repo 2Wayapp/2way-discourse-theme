@@ -1,0 +1,289 @@
+/*
+  2Way Web App parity starter
+
+  Source of truth:
+  - /Users/evilone/Documents/Development/2Way/code/Web-App/src/theme/tokens.css
+  - /Users/evilone/Documents/Development/2Way/code/Web-App/src/theme/semantic.css
+  - /Users/evilone/Documents/Development/2Way/code/Web-App/src/theme/components.css
+  - /Users/evilone/Documents/Development/2Way/code/Web-App/src/components/app-shell.tsx
+  - /Users/evilone/Documents/Development/2Way/code/Web-App/src/components/app-shell-header.tsx
+  - /Users/evilone/Documents/Development/2Way/code/Web-App/src/components/app-shell-sidebar-nav.tsx
+*/
+
+:root {
+  --two-way-font-sans: "Inter", "Segoe UI", sans-serif;
+
+  /* Web app shell colors */
+  --two-way-app-bg: #f6f7f8;
+  --two-way-surface: #ffffff;
+  --two-way-surface-alt: #fafafa;
+  --two-way-text-primary: #0f172a;
+  --two-way-text-secondary: #334155;
+  --two-way-text-tertiary: #64748b;
+  --two-way-border: #e2e8f0;
+  --two-way-border-light: #e4e4e7;
+
+  /* Sidebar colors from src/theme/components.css */
+  --two-way-sidebar-bg: #335c81;
+  --two-way-sidebar-header-bg: #2d5070;
+  --two-way-sidebar-hover: rgba(255, 255, 255, 0.08);
+  --two-way-sidebar-active: rgba(255, 255, 255, 0.15);
+  --two-way-sidebar-text: rgba(248, 250, 252, 0.9);
+  --two-way-sidebar-muted: rgba(186, 230, 253, 0.7);
+  --two-way-sidebar-label: rgba(186, 230, 253, 0.5);
+
+  /* Interactive colors */
+  --two-way-link: #1978e5;
+  --two-way-link-hover: #1d4ed8;
+  --two-way-primary-btn: #3d6f91;
+  --two-way-primary-btn-hover: #335c81;
+  --two-way-primary-btn-text: #ffffff;
+  --two-way-soft-accent: #dbeafe;
+
+  /* Shared metrics */
+  --two-way-radius-sm: 8px;
+  --two-way-radius-md: 12px;
+  --two-way-radius-lg: 16px;
+  --two-way-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --two-way-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+html,
+body {
+  font-family: var(--two-way-font-sans);
+  background: var(--two-way-app-bg);
+  color: var(--two-way-text-primary);
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--two-way-link);
+}
+
+a:hover,
+a:focus {
+  color: var(--two-way-link-hover);
+}
+
+.wrap,
+#main-outlet-wrapper,
+#main-outlet,
+.list-container,
+.topic-area,
+.group,
+.admin-content,
+.user-main,
+.category-list,
+.categories-list {
+  background: var(--two-way-app-bg);
+}
+
+.d-header-wrap {
+  box-shadow: 0 1px 2px rgba(2, 6, 23, 0.03);
+}
+
+.d-header {
+  background: var(--two-way-surface);
+  border-bottom: 1px solid var(--two-way-border);
+  box-shadow: 0 1px 2px rgba(2, 6, 23, 0.03);
+}
+
+.d-header .title,
+.d-header .title a,
+.d-header .icon,
+.d-header .icon svg,
+.d-header .header-link {
+  color: var(--two-way-text-primary);
+}
+
+.d-header .title {
+  font-weight: 700;
+}
+
+.btn,
+.select-kit.combo-box .select-kit-header,
+.select-kit.multi-select .multi-select-header,
+.menu-panel,
+.modal-inner-container,
+.fk-d-menu,
+.fk-dropdown-menu {
+  border-radius: var(--two-way-radius-md);
+}
+
+.btn {
+  font-family: var(--two-way-font-sans);
+  font-weight: 600;
+}
+
+.btn-primary,
+.btn.btn-primary,
+.create,
+.bulk-select.btn-default {
+  background: var(--two-way-primary-btn);
+  border-color: var(--two-way-primary-btn);
+  color: var(--two-way-primary-btn-text);
+}
+
+.btn-primary:hover,
+.btn.btn-primary:hover,
+.btn-primary:focus,
+.btn.btn-primary:focus {
+  background: var(--two-way-primary-btn-hover);
+  border-color: var(--two-way-primary-btn-hover);
+  color: var(--two-way-primary-btn-text);
+}
+
+.topic-list-item,
+.latest-topic-list-item,
+.category-box,
+.category-list-item,
+.subcategory-list-item,
+.user-content,
+.reviewable,
+.search-menu .results,
+.menu-panel,
+.modal-inner-container,
+.composer-fields,
+.composer-popup,
+.timeline-container .topic-timeline,
+.select-kit.combo-box .select-kit-header,
+.select-kit.multi-select .multi-select-header {
+  background: var(--two-way-surface);
+  border-color: var(--two-way-border-light);
+  box-shadow: var(--two-way-shadow-sm);
+}
+
+.topic-list-item,
+.latest-topic-list-item,
+.category-box,
+.category-list-item,
+.subcategory-list-item {
+  border-radius: var(--two-way-radius-md);
+}
+
+.topic-list-item:hover,
+.latest-topic-list-item:hover,
+.category-box:hover,
+.category-list-item:hover,
+.subcategory-list-item:hover {
+  border-color: var(--two-way-border);
+  box-shadow: var(--two-way-shadow-md);
+}
+
+.badge-category,
+.badge-notification,
+.discourse-tag {
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.badge-notification.new-posts,
+.badge-notification.unread-posts {
+  background: var(--two-way-primary-btn);
+  color: #fff;
+}
+
+.nav-pills > li > a,
+.nav-pills > li button {
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li > a.active,
+.nav-pills > li button.active {
+  background: var(--two-way-soft-accent);
+  color: var(--two-way-text-primary);
+}
+
+.topic-list .main-link a.title,
+.category-list .category-name,
+.categories-and-latest .category-list .category-name,
+.topic-body .regular,
+.topic-body .cooked {
+  color: var(--two-way-text-primary);
+}
+
+.topic-list .posters,
+.topic-list .views,
+.topic-list .activity,
+.topic-list .age,
+.topic-list .num,
+.topic-list .num a,
+.category-list .category-description,
+.topic-excerpt,
+.topic-body .cooked p,
+.topic-body .cooked li {
+  color: var(--two-way-text-secondary);
+}
+
+.names span,
+.topic-list-data,
+.topic-meta-data,
+.category-list .subcategories,
+.user-main .about .details,
+.topic-map__contents {
+  color: var(--two-way-text-tertiary);
+}
+
+/* New Discourse sidebar: make it feel like the web app shell rather than stock admin chrome. */
+.sidebar-wrapper,
+.sidebar-container,
+.sidebar-main-wrapper {
+  background: var(--two-way-sidebar-bg);
+  color: var(--two-way-sidebar-text);
+}
+
+.sidebar-wrapper .sidebar-header,
+.sidebar-container .sidebar-header {
+  background: var(--two-way-sidebar-header-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-section-header-text,
+.sidebar-section-header-button .sidebar-section-header-text {
+  color: var(--two-way-sidebar-label);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sidebar-section-link-wrapper .sidebar-section-link,
+.sidebar-section-link-wrapper .btn,
+.sidebar-more-section-links-details-summary {
+  border-radius: 10px;
+  color: var(--two-way-sidebar-text);
+}
+
+.sidebar-section-link-wrapper .sidebar-section-link:hover,
+.sidebar-more-section-links-details-summary:hover {
+  background: var(--two-way-sidebar-hover);
+}
+
+.sidebar-section-link-wrapper .sidebar-section-link.active,
+.sidebar-section-link-wrapper .sidebar-section-link.--active {
+  background: var(--two-way-sidebar-active);
+  color: #fff;
+}
+
+.sidebar-section-link-prefix.icon,
+.sidebar-section-link-prefix .d-icon,
+.sidebar-section-link-suffix .d-icon {
+  color: var(--two-way-sidebar-muted);
+}
+
+.sidebar-wrapper a,
+.sidebar-container a,
+.sidebar-wrapper .btn,
+.sidebar-container .btn {
+  color: var(--two-way-sidebar-text);
+}
+
+.sidebar-wrapper a:hover,
+.sidebar-container a:hover {
+  color: #fff;
+}

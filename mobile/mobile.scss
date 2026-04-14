@@ -1,0 +1,20 @@
+/* Mobile-specific parity adjustments */
+
+.d-header {
+  min-height: 56px;
+}
+
+.d-header .title {
+  font-size: 1rem;
+}
+
+.btn,
+.select-kit.combo-box .select-kit-header,
+.select-kit.multi-select .multi-select-header {
+  min-height: 38px;
+}
+
+.menu-panel,
+.modal-inner-container {
+  border-radius: 16px;
+}

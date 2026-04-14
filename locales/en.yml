@@ -1,0 +1,12 @@
+en:
+  theme_metadata:
+    description: "Starter Discourse theme that mirrors the 2Way web app shell, typography, and surface system."
+  settings:
+    webapp_url: "Web app base URL"
+    forms_url: "Forms URL"
+    forms_label: "Forms label"
+    forms_icon_url: "Forms icon URL"
+    sidebar_logo_url: "Desktop sidebar logo URL"
+    mobile_logo_url: "Mobile header logo URL"
+    show_forms_header_link: "Show a Forms link in the header"
+    match_webapp_sidebar: "Match the web app sidebar treatment"

@@ -1,0 +1,9 @@
+{
+  "name": "2Way Web App Theme",
+  "component": false,
+  "about_url": "https://forum.2way.is",
+  "license_url": "https://opensource.org/licenses/MIT",
+  "authors": "2Way / Codex",
+  "theme_version": "0.1.0",
+  "minimum_discourse_version": "3.2.0.beta1"
+}
