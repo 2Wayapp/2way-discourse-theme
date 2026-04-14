@@ -4,6 +4,11 @@
   min-height: 64px;
 }
 
+.d-header .wrap {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .sidebar-wrapper,
 .sidebar-container,
 .sidebar-main-wrapper {
@@ -15,9 +20,18 @@
   min-height: 64px;
 }
 
+.sidebar-wrapper .sidebar-sections,
+.sidebar-container .sidebar-sections {
+  padding: 1.5rem 1rem 1rem;
+}
+
 .topic-list-item,
 .latest-topic-list-item,
 .category-list-item,
 .category-box {
   margin-bottom: 0.5rem;
+}
+
+#main-outlet {
+  padding-bottom: 2.5rem;
 }

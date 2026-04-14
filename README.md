@@ -1,6 +1,6 @@
 # 2Way Web App Theme
 
-This is the starter Discourse theme for `forum.2way.is`.
+This is the starter Discourse theme for the 2Way community forum.
 
 The source of truth is the web app, not the WordPress site:
 
@@ -67,7 +67,7 @@ This keeps the core theme stable and prevents the `Forms` link behavior from bei
 
 Discourse server facts already verified:
 
-- host: `forum.2way.is`
+- host: your 2Way Discourse host
 - SSH user: `twadmin`
 - Discourse root: `/var/discourse`
 - container config: `/var/discourse/containers/app.yml`
@@ -80,7 +80,7 @@ Normal theme workflow should use the Discourse admin UI, not direct container ed
 1. Put this theme in its own git repo.
 2. In Discourse admin go to `Appearance -> Themes and components`.
 3. Choose `Install -> From a git repository`.
-4. Paste the repo URL.
+4. Paste the repo URL for the theme repository you want Discourse to track.
 5. If the repo is private, add the generated deploy key to the repo and retry.
 6. Preview the theme first, then set it as the default once parity is acceptable.
 

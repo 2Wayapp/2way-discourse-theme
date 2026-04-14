@@ -4,6 +4,16 @@
   min-height: 56px;
 }
 
+.wrap {
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
+}
+
+.d-header .wrap,
+.d-header .contents {
+  min-height: 56px;
+}
+
 .d-header .title {
   font-size: 1rem;
 }
@@ -17,4 +27,47 @@
 .menu-panel,
 .modal-inner-container {
   border-radius: 16px;
+}
+
+.topic-list {
+  border-spacing: 0 0.5rem;
+}
+
+.topic-list tbody tr.topic-list-item td,
+.topic-list tbody tr.latest-topic-list-item td {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.topic-post,
+.topic-map,
+.small-action,
+.post-notice {
+  border-radius: 14px;
+}
+
+.topic-avatar,
+.topic-body {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+html.anon #main-outlet {
+  padding: 1.25rem;
+}
+
+html.anon .contents.body-page {
+  padding: 1.5rem;
+  border-radius: 20px;
+}
+
+html.anon .contents.body-page img {
+  width: min(100%, 220px);
+  margin-bottom: 1.75rem;
+}
+
+html.anon .contents.body-page .btn.login-button,
+html.anon .contents.body-page .btn-primary.login-button,
+html.anon .contents.body-page button.login-button {
+  min-height: 42px;
 }

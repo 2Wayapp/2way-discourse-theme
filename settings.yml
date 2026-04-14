@@ -1,5 +1,5 @@
 webapp_url:
-  default: "https://app.2way.is"
+  default: ""
 
 forms_url:
   default: ""
