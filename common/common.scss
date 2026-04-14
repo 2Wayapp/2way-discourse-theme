@@ -617,6 +617,20 @@ select:focus,
   display: none;
 }
 
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel,
+.two-way-product-nav-enabled:not(.admin-interface) .revamped.menu-panel.slide-in,
+.two-way-product-nav-enabled:not(.admin-interface) .panel-body,
+.two-way-product-nav-enabled:not(.admin-interface) .panel-body-contents,
+.two-way-product-nav-enabled:not(.admin-interface) .sidebar-hamburger-dropdown,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-sections {
+  background: var(--two-way-sidebar-bg);
+  color: var(--two-way-sidebar-text);
+}
+
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-sections {
+  padding: 1rem 0.875rem 1.25rem;
+}
+
 .has-sidebar-page .wrap {
   max-width: none;
 }
