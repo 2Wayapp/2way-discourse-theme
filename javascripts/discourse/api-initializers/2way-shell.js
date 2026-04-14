@@ -45,31 +45,31 @@ function getHeaderContext() {
   }
 
   if (path.startsWith("/c/")) {
-    return { crumb: "Community", title: categoryTitle || documentTitle || "Community" };
+    return { crumb: "Forum", title: categoryTitle || documentTitle || "Forum" };
   }
 
   if (path.startsWith("/t/")) {
-    return { crumb: "Community", title: topicTitle || documentTitle || "Topic" };
+    return { crumb: "Forum", title: topicTitle || documentTitle || "Topic" };
   }
 
   if (path === "/categories") {
-    return { crumb: "Community", title: "Categories" };
+    return { crumb: "Forum", title: "Categories" };
   }
 
   if (path === "/new") {
-    return { crumb: "Community", title: "New" };
+    return { crumb: "Forum", title: "New" };
   }
 
   if (path === "/hot") {
-    return { crumb: "Community", title: "Hot" };
+    return { crumb: "Forum", title: "Hot" };
   }
 
   if (path === "/latest" || path === "/") {
-    return { crumb: "Community", title: "Community" };
+    return { crumb: "Forum", title: "Forum" };
   }
 
-  const slug = path.split("/").filter(Boolean).at(-1) || "Community";
-  return { crumb: "Community", title: documentTitle || titleCase(slug) };
+  const slug = path.split("/").filter(Boolean).at(-1) || "Forum";
+  return { crumb: "Forum", title: documentTitle || titleCase(slug) };
 }
 
 function normalizeBaseUrl(url) {
@@ -147,8 +147,8 @@ function getProductNavGroups() {
       ],
     },
     {
-      label: "COMMUNITY",
-      items: [{ label: "Community", href: "/latest", iconSrc: icon("chat.svg"), activeMatch: "community" }],
+      label: "FORUM",
+      items: [{ label: "Forum", href: "/latest", iconSrc: icon("chat.svg"), activeMatch: "community" }],
     },
   ].map((group) => ({
     ...group,
