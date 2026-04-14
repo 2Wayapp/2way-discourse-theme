@@ -12,7 +12,7 @@
 
 :root {
   --two-way-font-sans: "Inter", "Segoe UI", sans-serif;
-  --two-way-rail-width: 256px;
+  --two-way-rail-width: 260px;
   --two-way-shell-max-width: 1280px;
   --two-way-shell-gutter: 1rem;
   --two-way-shell-gutter-lg: 2rem;
@@ -608,7 +608,9 @@ select:focus,
 /* New Discourse sidebar: make it feel like the web app shell rather than stock admin chrome. */
 .sidebar-wrapper,
 .sidebar-container,
-.sidebar-main-wrapper {
+.sidebar-main-wrapper,
+.sidebar-wrapper .sidebar-sections,
+.sidebar-container .sidebar-sections {
   background: var(--two-way-sidebar-bg);
   color: var(--two-way-sidebar-text);
 }
@@ -616,16 +618,17 @@ select:focus,
 .two-way-sidebar-brand {
   display: flex;
   align-items: center;
-  min-height: 80px;
-  margin: 0 -16px 1.25rem;
-  padding: 1.25rem 1.5rem;
+  min-height: 64px;
+  margin: 0 -16px 1.5rem;
+  padding: 0.75rem 1rem;
   background: var(--two-way-sidebar-header-bg);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
 }
 
 .two-way-sidebar-brand__image {
   display: block;
-  max-width: 176px;
+  max-width: 128px;
   max-height: 40px;
   width: auto;
   height: auto;
@@ -639,6 +642,7 @@ select:focus,
 .two-way-product-nav {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   gap: 1.25rem;
   padding: 0 0 0.5rem;
 }
@@ -881,6 +885,13 @@ select:focus,
 .sidebar-footer-actions,
 button[aria-label="Add custom section"],
 button[aria-label="Keyboard Shortcuts"] {
+  display: none !important;
+}
+
+a[href="https://discourse.org/powered-by"],
+.powered-by-discourse,
+.topic-list-bottom .footer-notes,
+.topic-list-bottom .powered-by-discourse {
   display: none !important;
 }
 
@@ -1143,14 +1154,17 @@ html.anon .contents.body-page button.login-button .d-icon {
     height: 100vh;
     max-height: 100vh;
     border-right: 0;
-    box-shadow: 16px 0 32px rgba(15, 23, 42, 0.1);
+    box-shadow: none;
+    background: var(--two-way-sidebar-bg);
   }
 
   body.has-sidebar-page .sidebar-wrapper .sidebar-sections,
   body.has-sidebar-page .sidebar-container .sidebar-sections {
     width: 100%;
     height: 100%;
-    padding: 0 14px 18px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 24px;
     overflow-y: auto;
   }
 
