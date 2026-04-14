@@ -12,6 +12,7 @@
 
 :root {
   --two-way-font-sans: "Inter", "Segoe UI", sans-serif;
+  --two-way-rail-width: 256px;
   --two-way-shell-max-width: 1280px;
   --two-way-shell-gutter: 1rem;
   --two-way-shell-gutter-lg: 2rem;
@@ -479,6 +480,29 @@ select:focus,
   color: var(--two-way-sidebar-text);
 }
 
+.two-way-sidebar-brand {
+  display: flex;
+  align-items: center;
+  min-height: 80px;
+  margin: 0 -16px 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--two-way-sidebar-header-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.two-way-sidebar-brand__image {
+  display: block;
+  max-width: 176px;
+  max-height: 40px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.two-way-sidebar-brand--filter .two-way-sidebar-brand__image {
+  filter: brightness(0) invert(1);
+}
+
 .has-sidebar-page .wrap {
   max-width: none;
 }
@@ -532,6 +556,53 @@ select:focus,
 .sidebar-wrapper a:hover,
 .sidebar-container a:hover {
   color: #fff;
+}
+
+.sidebar-sections__back-to-forum {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0.5rem 0.875rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 10px;
+  color: var(--two-way-sidebar-text);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-sections__back-to-forum:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.sidebar-sections.admin-panel .sidebar-search__input,
+.sidebar-sections.admin-panel .sidebar-section-header-search .filter-input {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.sidebar-sections.admin-panel .sidebar-search__input::placeholder,
+.sidebar-sections.admin-panel .sidebar-section-header-search .filter-input::placeholder {
+  color: rgba(248, 250, 252, 0.7);
+}
+
+.sidebar-sections.admin-panel .sidebar-search__icon {
+  background: transparent;
+}
+
+.sidebar-sections.admin-panel .sidebar-section-header,
+.sidebar-sections.admin-panel .admin-sidebar-nav-link {
+  color: var(--two-way-sidebar-text);
+}
+
+.sidebar-sections.admin-panel .admin-sidebar-nav-link:hover,
+.sidebar-sections.admin-panel .sidebar-section-header:hover {
+  color: #fff;
+}
+
+.sidebar-sections.admin-panel .sidebar-footer-actions-button {
+  color: var(--two-way-sidebar-text);
 }
 
 /* Private-site login gate: match the web app auth shell rather than stock Discourse. */
@@ -685,5 +756,81 @@ html.anon .contents.body-page button.login-button .d-icon {
 
   #main-outlet {
     padding-top: 1.5rem;
+  }
+
+  body.has-sidebar-page .d-header {
+    position: fixed;
+    top: 0;
+    left: var(--two-way-rail-width);
+    right: 0;
+    z-index: 401;
+    width: auto;
+  }
+
+  body.has-sidebar-page .d-header .wrap {
+    max-width: none;
+    margin: 0;
+    padding: 0 var(--two-way-shell-gutter-lg);
+  }
+
+  body.has-sidebar-page .d-header .contents {
+    justify-content: flex-end;
+  }
+
+  body.has-sidebar-page .d-header .header-sidebar-toggle,
+  body.has-sidebar-page .d-header .home-logo-wrapper-outlet,
+  body.has-sidebar-page .d-header .before-header-panel-outlet,
+  body.has-sidebar-page .d-header .after-header-panel-outlet {
+    display: none;
+  }
+
+  body.has-sidebar-page .d-header .panel {
+    margin-left: auto;
+  }
+
+  body.has-sidebar-page .sidebar-wrapper,
+  body.has-sidebar-page .sidebar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--two-way-rail-width);
+    height: 100vh;
+    max-height: 100vh;
+    border-right: 0;
+    box-shadow: 16px 0 32px rgba(15, 23, 42, 0.1);
+  }
+
+  body.has-sidebar-page .sidebar-wrapper .sidebar-sections,
+  body.has-sidebar-page .sidebar-container .sidebar-sections {
+    width: 100%;
+    height: 100%;
+    padding: 0 14px 18px;
+    overflow-y: auto;
+  }
+
+  body.has-sidebar-page #main-outlet-wrapper {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+
+  body.has-sidebar-page #main-outlet {
+    width: auto;
+    max-width: none;
+    margin: 0 0 0 var(--two-way-rail-width);
+    padding: calc(var(--two-way-header-height) + 1.5rem) var(--two-way-shell-gutter-lg) 2.75rem;
+  }
+
+  body.has-sidebar-page.admin-interface #main-outlet {
+    padding-top: calc(var(--two-way-header-height) + 1rem);
+  }
+
+  body.has-sidebar-page .admin-contents,
+  body.has-sidebar-page .admin-detail,
+  body.has-sidebar-page .admin-content,
+  body.has-sidebar-page .discovery-list-container,
+  body.has-sidebar-page .discovery-container {
+    max-width: none;
   }
 }
