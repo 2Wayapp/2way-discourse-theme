@@ -89,10 +89,59 @@ function joinUrl(base, path) {
   return `${base}${normalizedPath}`;
 }
 
-function getProductNavGroups() {
+function enabledModulesFor(currentUser) {
+  const fieldName = (settings.module_access_field || "").trim();
+
+  if (!fieldName) {
+    return null;
+  }
+
+  const rawValue =
+    currentUser?.custom_fields?.[fieldName] ??
+    currentUser?.customFields?.[fieldName] ??
+    null;
+
+  if (!rawValue) {
+    return null;
+  }
+
+  if (Array.isArray(rawValue)) {
+    return new Set(rawValue.map((value) => String(value).trim()).filter(Boolean));
+  }
+
+  if (typeof rawValue === "string") {
+    const trimmed = rawValue.trim();
+
+    if (!trimmed) {
+      return null;
+    }
+
+    try {
+      const parsed = JSON.parse(trimmed);
+
+      if (Array.isArray(parsed)) {
+        return new Set(parsed.map((value) => String(value).trim()).filter(Boolean));
+      }
+    } catch {
+      // fall back to comma-delimited parsing
+    }
+
+    return new Set(
+      trimmed
+        .split(",")
+        .map((value) => value.trim())
+        .filter(Boolean)
+    );
+  }
+
+  return null;
+}
+
+function getProductNavGroups(currentUser) {
   const webappBase = normalizeBaseUrl(settings.webapp_url);
   const formsUrl = (settings.forms_url || "").trim();
   const formsLabel = (settings.forms_label || "Forms").trim() || "Forms";
+  const enabledModules = enabledModulesFor(currentUser);
 
   if (!webappBase && !formsUrl) {
     return [];
@@ -104,55 +153,63 @@ function getProductNavGroups() {
     {
       label: "CORE",
       items: [
-        { label: "Activity Feed", href: joinUrl(webappBase, "/"), iconSrc: icon("feeds.png") },
+        { label: "Activity Feed", href: joinUrl(webappBase, "/"), iconSrc: icon("feeds.png"), module: "feeds" },
         {
           label: "Emergency Contacts",
           href: joinUrl(webappBase, "/emergency"),
           iconSrc: icon("emergency.png"),
+          module: "emergency",
         },
       ],
     },
     {
       label: "CONTENT",
       items: [
-        { label: "News", href: joinUrl(webappBase, "/newsletters"), iconSrc: icon("newsletter.svg") },
-        { label: "Journals", href: joinUrl(webappBase, "/journals"), iconSrc: icon("journal.png") },
-        { label: "Events", href: joinUrl(webappBase, "/events"), iconSrc: icon("event.png") },
-        { label: "Reports", href: joinUrl(webappBase, "/reports"), iconSrc: icon("report.png") },
-        { label: "Surveys", href: joinUrl(webappBase, "/surveys"), iconSrc: icon("survey.png") },
+        { label: "News", href: joinUrl(webappBase, "/newsletters"), iconSrc: icon("newsletter.svg"), module: "newsletter" },
+        { label: "Journals", href: joinUrl(webappBase, "/journals"), iconSrc: icon("journal.png"), module: "journal" },
+        { label: "Events", href: joinUrl(webappBase, "/events"), iconSrc: icon("event.png"), module: "event" },
+        { label: "Reports", href: joinUrl(webappBase, "/reports"), iconSrc: icon("report.png"), module: "report" },
+        { label: "Surveys", href: joinUrl(webappBase, "/surveys"), iconSrc: icon("survey.png"), module: "survey" },
         {
           label: formsLabel,
           href: formsUrl || joinUrl(webappBase, "/forms"),
           iconSrc: (settings.forms_icon_url || "").trim() || icon("default.svg"),
+          module: "form",
         },
       ],
     },
     {
       label: "DIRECTORY",
       items: [
-        { label: "Members", href: joinUrl(webappBase, "/board-staff"), iconSrc: icon("members.png") },
-        { label: "Contacts", href: joinUrl(webappBase, "/contacts"), iconSrc: icon("contact.png") },
+        { label: "Members", href: joinUrl(webappBase, "/board-staff"), iconSrc: icon("members.png"), module: "members" },
+        { label: "Contacts", href: joinUrl(webappBase, "/contacts"), iconSrc: icon("contact.png"), module: "contact" },
         {
           label: "Destination",
           href: joinUrl(webappBase, "/destinations"),
           iconSrc: icon("destination.png"),
+          module: "destination",
         },
       ],
     },
     {
       label: "RESOURCES",
       items: [
-        { label: "Documents", href: joinUrl(webappBase, "/documents"), iconSrc: icon("document.png") },
-        { label: "Deals & Discounts", href: joinUrl(webappBase, "/deals"), iconSrc: icon("deals.svg") },
+        { label: "Documents", href: joinUrl(webappBase, "/documents"), iconSrc: icon("document.png"), module: "document" },
+        { label: "Deals & Discounts", href: joinUrl(webappBase, "/deals"), iconSrc: icon("deals.svg"), module: "deals" },
       ],
     },
     {
       label: "FORUM",
-      items: [{ label: "Forum", href: "/latest", iconSrc: icon("chat.svg"), activeMatch: "community" }],
+      items: [{ label: "Forum", href: "/latest", iconSrc: icon("chat.svg"), activeMatch: "community", module: "forum" }],
     },
   ].map((group) => ({
     ...group,
-    items: group.items.filter((item) => item.href && !item.href.endsWith("/icons/nav/")),
+    items: group.items.filter(
+      (item) =>
+        item.href &&
+        !item.href.endsWith("/icons/nav/") &&
+        (!enabledModules || item.module === "forum" || enabledModules.has(item.module))
+    ),
   }));
 }
 
@@ -236,7 +293,8 @@ function ensureProductNav() {
     return;
   }
 
-  const groups = getProductNavGroups();
+  const currentUser = getCurrentUserRecord(api);
+  const groups = getProductNavGroups(currentUser);
 
   if (!groups.length) {
     return;
@@ -312,6 +370,176 @@ function ensureProductNav() {
   body?.classList.add("two-way-product-nav-enabled");
 }
 
+function getCurrentUserRecord(api) {
+  if (typeof api.getCurrentUser === "function") {
+    return api.getCurrentUser();
+  }
+
+  return window.Discourse?.__container__?.lookup?.("service:current-user") || null;
+}
+
+function avatarUrlFor(currentUser, size = 72) {
+  const template =
+    currentUser?.avatar_template ||
+    currentUser?.avatarTemplate ||
+    currentUser?.user_avatar_template;
+
+  if (!template || typeof template !== "string") {
+    return "";
+  }
+
+  return template.replace("{size}", String(size));
+}
+
+function initialsFor(currentUser) {
+  const value =
+    currentUser?.name?.trim() ||
+    currentUser?.username?.trim() ||
+    "2W";
+
+  return value
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join("");
+}
+
+function secondaryProfileText(currentUser) {
+  const title = currentUser?.title?.trim();
+
+  if (title) {
+    return title;
+  }
+
+  if (currentUser?.admin) {
+    return "Administrator";
+  }
+
+  if (currentUser?.moderator) {
+    return "Moderator";
+  }
+
+  return currentUser?.username || "Member";
+}
+
+function handleSidebarLogout(event) {
+  event.preventDefault();
+
+  const csrfToken =
+    document.querySelector("meta[name='csrf-token']")?.getAttribute("content") || "";
+
+  fetch("/session/logout", {
+    method: "POST",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRF-Token": csrfToken,
+      "X-Requested-With": "XMLHttpRequest",
+    },
+  }).finally(() => {
+    window.location.assign("/");
+  });
+}
+
+function closeSidebarMenus() {
+  document
+    .querySelectorAll(".two-way-sidebar-footer__menu-toggle[aria-expanded='true']")
+    .forEach((node) => node.setAttribute("aria-expanded", "false"));
+
+  document
+    .querySelectorAll(".two-way-sidebar-footer__menu")
+    .forEach((node) => {
+      node.hidden = true;
+    });
+}
+
+function ensureSidebarFooter(api) {
+  const body = document.body;
+  const sections = document.querySelectorAll(
+    ".sidebar-wrapper .sidebar-sections, .sidebar-container .sidebar-sections, .hamburger-panel .sidebar-sections, .sidebar-hamburger-dropdown .sidebar-sections"
+  );
+  const enabled =
+    !!settings.match_webapp_sidebar &&
+    !body?.classList.contains("admin-interface") &&
+    (body?.classList.contains("has-sidebar-page") || sections.length > 0);
+
+  document
+    .querySelectorAll(".two-way-sidebar-footer")
+    .forEach((node) => node.remove());
+
+  if (!enabled) {
+    return;
+  }
+
+  const currentUser = getCurrentUserRecord(api);
+  const username = currentUser?.username;
+
+  if (!currentUser || !username) {
+    return;
+  }
+
+  const profileUrl = `/u/${username}/summary`;
+  const avatarUrl = avatarUrlFor(currentUser);
+  const displayName = currentUser.name?.trim() || username;
+  const secondaryText = secondaryProfileText(currentUser);
+  const initials = initialsFor(currentUser);
+
+  sections.forEach((section) => {
+    const footer = document.createElement("div");
+    footer.className = "two-way-sidebar-footer";
+    footer.innerHTML = `
+      <div class="two-way-sidebar-footer__inner">
+        <a class="two-way-sidebar-footer__profile" href="${profileUrl}" aria-label="View profile">
+          <span class="two-way-sidebar-footer__avatar">
+            ${
+              avatarUrl
+                ? `<img class="two-way-sidebar-footer__avatar-image" alt="${displayName}" src="${avatarUrl}">`
+                : `<span class="two-way-sidebar-footer__avatar-fallback">${initials}</span>`
+            }
+          </span>
+          <span class="two-way-sidebar-footer__meta">
+            <span class="two-way-sidebar-footer__name">${displayName}</span>
+            <span class="two-way-sidebar-footer__secondary">${secondaryText}</span>
+          </span>
+        </a>
+        <div class="two-way-sidebar-footer__actions">
+          <button class="two-way-sidebar-footer__menu-toggle" type="button" aria-label="More options" aria-expanded="false">
+            <span class="material-icons-round">more_vert</span>
+          </button>
+          <div class="two-way-sidebar-footer__menu" hidden>
+            <a class="two-way-sidebar-footer__menu-item" href="${profileUrl}">
+              <span class="material-icons-round">person</span>
+              <span>Profile</span>
+            </a>
+            <button class="two-way-sidebar-footer__menu-item two-way-sidebar-footer__logout" type="button">
+              <span class="material-icons-round">logout</span>
+              <span>Log out</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const toggle = footer.querySelector(".two-way-sidebar-footer__menu-toggle");
+    const menu = footer.querySelector(".two-way-sidebar-footer__menu");
+    const logoutButton = footer.querySelector(".two-way-sidebar-footer__logout");
+
+    toggle?.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", expanded ? "false" : "true");
+      if (menu) {
+        menu.hidden = expanded;
+      }
+    });
+
+    logoutButton?.addEventListener("click", handleSidebarLogout);
+
+    section.appendChild(footer);
+  });
+}
+
 function ensureHeaderContext() {
   const desktop = window.matchMedia("(min-width: 1000px)").matches;
   const body = document.body;
@@ -353,11 +581,12 @@ function ensureHeaderContext() {
   }
 }
 
-function refreshShell() {
+function refreshShell(api) {
   requestAnimationFrame(() => {
     ensureSidebarBrand();
     ensureProductNav();
     ensureHeaderContext();
+    ensureSidebarFooter(api);
   });
 }
 
@@ -377,15 +606,20 @@ export default apiInitializer("1.8.0", (api) => {
       return;
     }
 
-    window.setTimeout(() => refreshShell(), 40);
-    window.setTimeout(() => refreshShell(), 180);
+    window.setTimeout(() => refreshShell(api), 40);
+    window.setTimeout(() => refreshShell(api), 180);
   };
 
   api.onPageChange(() => {
-    refreshShell();
+    refreshShell(api);
   });
 
-  refreshShell();
-  window.addEventListener("resize", refreshShell);
+  refreshShell(api);
+  window.addEventListener("resize", () => refreshShell(api));
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest(".two-way-sidebar-footer__actions")) {
+      closeSidebarMenus();
+    }
+  });
   document.addEventListener("click", maybeRefreshAfterSidebarToggle, true);
 });

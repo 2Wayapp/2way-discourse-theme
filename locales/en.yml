@@ -10,3 +10,4 @@ en:
     mobile_logo_url: "Mobile header logo URL"
     show_forms_header_link: "Show a Forms link in the header"
     match_webapp_sidebar: "Match the web app sidebar treatment"
+    module_access_field: "User custom field containing enabled 2Way modules"

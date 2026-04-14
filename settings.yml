@@ -21,3 +21,6 @@ show_forms_header_link:
 
 match_webapp_sidebar:
   default: true
+
+module_access_field:
+  default: "two_way_modules"
