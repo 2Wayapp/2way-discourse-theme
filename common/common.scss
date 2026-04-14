@@ -552,6 +552,23 @@ html.anon #main-outlet {
   background-position: center center, center center;
 }
 
+html.anon body.login-page.static-login #main-outlet > .container,
+html.anon body.login-page.static-login #main-outlet > section.container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+html.anon body.login-page.static-login #main-outlet > section.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 html.anon .contents.body-page {
   position: relative;
   width: 100%;
