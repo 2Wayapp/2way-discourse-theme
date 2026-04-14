@@ -57,11 +57,16 @@ html.anon #main-outlet {
 }
 
 html.anon .contents.body-page {
+  padding: 0;
+}
+
+html.anon .contents.body-page .login-content {
   padding: 1.5rem;
   border-radius: 20px;
 }
 
-html.anon .contents.body-page img {
+html.anon .contents.body-page img,
+html.anon .contents.body-page .logo-container {
   width: min(100%, 220px);
   margin-bottom: 1.75rem;
 }

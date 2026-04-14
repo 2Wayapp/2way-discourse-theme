@@ -574,19 +574,36 @@ html.anon .contents.body-page {
   width: 100%;
   max-width: 440px;
   margin: 0 auto;
-  padding: 2rem 2.5rem;
+  padding: 0;
   border: 0;
-  border-radius: 24px;
-  background: var(--two-way-surface);
-  box-shadow: 0 25px 50px rgba(2, 6, 23, 0.25);
+  background: transparent;
+  box-shadow: none;
   text-align: center;
 }
 
+html.anon .contents.body-page .login-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+html.anon .contents.body-page .login-content {
+  width: 100%;
+  padding: 2rem 2.5rem;
+  border-radius: 24px;
+  background: var(--two-way-surface);
+  box-shadow: 0 25px 50px rgba(2, 6, 23, 0.25);
+}
+
+html.anon .contents.body-page .logo-container,
 html.anon .contents.body-page img {
   display: block;
   width: min(100%, 260px);
   max-height: 80px;
   margin: 0 auto 2.25rem;
+}
+
+html.anon .contents.body-page img {
   object-fit: contain;
 }
 
@@ -620,7 +637,9 @@ html.anon .contents.body-page p {
 }
 
 html.anon .contents.body-page .controls,
-html.anon .contents.body-page .buttons {
+html.anon .contents.body-page .buttons,
+html.anon .contents.body-page .body-page-button-container {
+  width: 100%;
   margin-top: 1.5rem;
 }
 
