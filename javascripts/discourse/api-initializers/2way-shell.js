@@ -218,10 +218,13 @@ function ensureSidebarBrand() {
 
 function ensureProductNav() {
   const body = document.body;
+  const sections = document.querySelectorAll(
+    ".sidebar-wrapper .sidebar-sections, .sidebar-container .sidebar-sections, .hamburger-panel .sidebar-sections, .sidebar-hamburger-dropdown .sidebar-sections"
+  );
   const enabled =
     !!settings.match_webapp_sidebar &&
     !body?.classList.contains("admin-interface") &&
-    body?.classList.contains("has-sidebar-page");
+    (body?.classList.contains("has-sidebar-page") || sections.length > 0);
 
   document
     .querySelectorAll(".two-way-product-nav")
@@ -239,9 +242,6 @@ function ensureProductNav() {
     return;
   }
 
-  const sections = document.querySelectorAll(
-    ".sidebar-wrapper .sidebar-sections, .sidebar-container .sidebar-sections"
-  );
   const currentPath = window.location.pathname;
 
   sections.forEach((section) => {
@@ -302,6 +302,8 @@ function ensureProductNav() {
 
     if (anchor?.nextSibling) {
       section.insertBefore(productNav, anchor.nextSibling);
+    } else if (section.firstChild) {
+      section.insertBefore(productNav, section.firstChild);
     } else {
       section.appendChild(productNav);
     }
