@@ -362,10 +362,30 @@ function refreshShell() {
 }
 
 export default apiInitializer("1.8.0", (api) => {
+  const maybeRefreshAfterSidebarToggle = (event) => {
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    if (
+      !target.closest(
+        "[aria-label='Navigation menu'], .btn-sidebar-toggle, .header-sidebar-toggle, .sidebar-hamburger-dropdown"
+      )
+    ) {
+      return;
+    }
+
+    window.setTimeout(() => refreshShell(), 40);
+    window.setTimeout(() => refreshShell(), 180);
+  };
+
   api.onPageChange(() => {
     refreshShell();
   });
 
   refreshShell();
   window.addEventListener("resize", refreshShell);
+  document.addEventListener("click", maybeRefreshAfterSidebarToggle, true);
 });
