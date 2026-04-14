@@ -837,14 +837,37 @@ select:focus,
   background: transparent;
 }
 
-.sidebar-sections.admin-panel .sidebar-section-header,
-.sidebar-sections.admin-panel .admin-sidebar-nav-link {
-  color: var(--two-way-sidebar-text);
+.admin-interface .sidebar-sections.admin-panel,
+.admin-interface .sidebar-sections.admin-panel a,
+.admin-interface .sidebar-sections.admin-panel a:visited,
+.admin-interface .sidebar-sections.admin-panel button,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-header,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-header-text,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-link,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-link-content-text,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-link-content-badge,
+.admin-interface .sidebar-sections.admin-panel .admin-sidebar-nav-link,
+.admin-interface .sidebar-sections.admin-panel .admin-sidebar-nav-link__name,
+.admin-interface .sidebar-sections.admin-panel .admin-sidebar-nav-link__prefix,
+.admin-interface .sidebar-sections.admin-panel .sidebar-more-section-links-details-summary,
+.admin-interface .sidebar-sections.admin-panel .sidebar-footer-actions-button {
+  color: var(--two-way-sidebar-text) !important;
 }
 
-.sidebar-sections.admin-panel .admin-sidebar-nav-link:hover,
-.sidebar-sections.admin-panel .sidebar-section-header:hover {
-  color: #fff;
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-link-prefix.icon,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-link-prefix .d-icon,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-link-suffix .d-icon,
+.admin-interface .sidebar-sections.admin-panel .admin-sidebar-nav-link .d-icon,
+.admin-interface .sidebar-sections.admin-panel .sidebar-footer-actions-button .d-icon,
+.admin-interface .sidebar-sections.admin-panel .sidebar-search__icon .d-icon {
+  color: var(--two-way-sidebar-muted) !important;
+}
+
+.admin-interface .sidebar-sections.admin-panel .admin-sidebar-nav-link:hover,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-header:hover,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-link:hover,
+.admin-interface .sidebar-sections.admin-panel .sidebar-more-section-links-details-summary:hover {
+  color: #fff !important;
 }
 
 .admin-interface .sidebar-sections.admin-panel .admin-sidebar-nav-link.active,
@@ -853,10 +876,6 @@ select:focus,
   background: rgba(255, 255, 255, 0.14);
   border-radius: 10px;
   color: #fff;
-}
-
-.sidebar-sections.admin-panel .sidebar-footer-actions-button {
-  color: var(--two-way-sidebar-text);
 }
 
 .sidebar-footer-actions,
