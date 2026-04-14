@@ -133,6 +133,39 @@ a:focus {
   gap: 0.75rem;
 }
 
+.two-way-header-context {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 0.325rem;
+}
+
+.two-way-header-context__crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--two-way-text-tertiary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.two-way-header-context__crumb-home {
+  color: var(--two-way-text-secondary);
+}
+
+.two-way-header-context__crumb-separator {
+  color: #94a3b8;
+}
+
+.two-way-header-context__title {
+  color: var(--two-way-text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
 .d-header .title,
 .d-header .title a,
 .d-header .icon,
@@ -605,6 +638,41 @@ select:focus,
   color: var(--two-way-sidebar-text);
 }
 
+.welcome-banner.--location-above-topic-content {
+  display: none;
+}
+
+.list-controls > .container,
+.container.list-container {
+  background: transparent;
+}
+
+.list-controls > .container {
+  padding-top: 0.25rem;
+}
+
+.navigation-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0;
+}
+
+.navigation-container .category-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.navigation-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 /* Private-site login gate: match the web app auth shell rather than stock Discourse. */
 html.anon,
 html.anon body {
@@ -774,7 +842,7 @@ html.anon .contents.body-page button.login-button .d-icon {
   }
 
   body.has-sidebar-page .d-header .contents {
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 
   body.has-sidebar-page .d-header .header-sidebar-toggle,
@@ -786,6 +854,10 @@ html.anon .contents.body-page button.login-button .d-icon {
 
   body.has-sidebar-page .d-header .panel {
     margin-left: auto;
+  }
+
+  body.has-sidebar-page .d-header .contents .search-menu {
+    max-width: 340px;
   }
 
   body.has-sidebar-page .sidebar-wrapper,
@@ -820,6 +892,14 @@ html.anon .contents.body-page button.login-button .d-icon {
     max-width: none;
     margin: 0 0 0 var(--two-way-rail-width);
     padding: calc(var(--two-way-header-height) + 1.5rem) var(--two-way-shell-gutter-lg) 2.75rem;
+  }
+
+  body.has-sidebar-page #main-outlet > .container,
+  body.has-sidebar-page #main-outlet > .list-controls,
+  body.has-sidebar-page #main-outlet > .container.list-container {
+    max-width: min(100%, 1280px);
+    margin-right: auto;
+    margin-left: auto;
   }
 
   body.has-sidebar-page.admin-interface #main-outlet {
