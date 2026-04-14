@@ -330,7 +330,7 @@ select:focus,
 
 .topic-list {
   border-collapse: separate;
-  border-spacing: 0 0.75rem;
+  border-spacing: 0 0.9rem;
 }
 
 .topic-list thead th,
@@ -349,18 +349,22 @@ select:focus,
   border-top: 1px solid var(--two-way-border-light);
   border-bottom: 1px solid var(--two-way-border-light);
   box-shadow: none;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .topic-list tbody tr.topic-list-item td:first-child,
 .topic-list tbody tr.latest-topic-list-item td:first-child {
   border-left: 1px solid var(--two-way-border-light);
   border-radius: var(--two-way-radius-md) 0 0 var(--two-way-radius-md);
+  padding-left: 1.15rem;
 }
 
 .topic-list tbody tr.topic-list-item td:last-child,
 .topic-list tbody tr.latest-topic-list-item td:last-child {
   border-right: 1px solid var(--two-way-border-light);
   border-radius: 0 var(--two-way-radius-md) var(--two-way-radius-md) 0;
+  padding-right: 1.15rem;
 }
 
 .topic-list .main-link a.title {
@@ -710,17 +714,21 @@ select:focus,
   color: #fff;
 }
 
-.sidebar-sections.admin-panel {
-  background: var(--two-way-sidebar-bg);
+.admin-interface .sidebar-sections.admin-panel,
+.admin-interface .sidebar-wrapper .sidebar-sections.admin-panel,
+.admin-interface .sidebar-container .sidebar-sections.admin-panel {
+  background: var(--two-way-sidebar-bg) !important;
 }
 
-.sidebar-sections.admin-panel .sidebar-panel-header,
-.sidebar-sections.admin-panel .sidebar-panel-header__row,
-.sidebar-sections.admin-panel .sidebar-section-wrapper {
+.admin-interface .sidebar-sections.admin-panel .sidebar-panel-header,
+.admin-interface .sidebar-sections.admin-panel .sidebar-panel-header__row,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-wrapper,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-content,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-header-wrapper {
   background: transparent;
 }
 
-.sidebar-sections.admin-panel .sidebar-section-wrapper {
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-wrapper {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -743,6 +751,14 @@ select:focus,
   color: #fff;
 }
 
+.admin-interface .sidebar-sections.admin-panel .admin-sidebar-nav-link.active,
+.admin-interface .sidebar-sections.admin-panel .sidebar-section-link.active,
+.admin-interface .sidebar-sections.admin-panel .admin-sidebar-nav-link.--active {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  color: #fff;
+}
+
 .sidebar-sections.admin-panel .sidebar-footer-actions-button {
   color: var(--two-way-sidebar-text);
 }
@@ -757,7 +773,10 @@ select:focus,
 }
 
 .list-controls > .container {
-  padding-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 0.35rem;
 }
 
 .navigation-container {
@@ -765,7 +784,7 @@ select:focus,
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0;
+  padding: 0.2rem 0 0;
 }
 
 .navigation-container .category-breadcrumb {
@@ -780,6 +799,31 @@ select:focus,
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+.category .list-controls,
+.navigation-topics .list-controls {
+  margin-bottom: 1.15rem;
+}
+
+.category .navigation-container.category-navigation,
+.navigation-topics .navigation-container {
+  min-height: 48px;
+}
+
+.category .container.list-container,
+.navigation-topics .container.list-container {
+  padding-top: 0.15rem;
+}
+
+.category .topic-list .main-link,
+.navigation-topics .topic-list .main-link {
+  padding-right: 1rem;
+}
+
+.category .topic-list .link-bottom-line,
+.navigation-topics .topic-list .link-bottom-line {
+  margin-top: 0.35rem;
 }
 
 /* Private-site login gate: match the web app auth shell rather than stock Discourse. */
