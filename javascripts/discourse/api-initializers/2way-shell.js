@@ -72,6 +72,103 @@ function getHeaderContext() {
   return { crumb: "Community", title: documentTitle || titleCase(slug) };
 }
 
+function normalizeBaseUrl(url) {
+  return (url || "").trim().replace(/\/+$/, "");
+}
+
+function joinUrl(base, path) {
+  if (!base) {
+    return path;
+  }
+
+  if (/^https?:\/\//.test(path)) {
+    return path;
+  }
+
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalizedPath}`;
+}
+
+function getProductNavGroups() {
+  const webappBase = normalizeBaseUrl(settings.webapp_url);
+  const formsUrl = (settings.forms_url || "").trim();
+  const formsLabel = (settings.forms_label || "Forms").trim() || "Forms";
+
+  if (!webappBase && !formsUrl) {
+    return [];
+  }
+
+  const icon = (name) => joinUrl(webappBase, `/icons/nav/${name}`);
+
+  return [
+    {
+      label: "CORE",
+      items: [
+        { label: "Activity Feed", href: joinUrl(webappBase, "/"), iconSrc: icon("feeds.png") },
+        {
+          label: "Emergency Contacts",
+          href: joinUrl(webappBase, "/emergency"),
+          iconSrc: icon("emergency.png"),
+        },
+      ],
+    },
+    {
+      label: "CONTENT",
+      items: [
+        { label: "News", href: joinUrl(webappBase, "/newsletters"), iconSrc: icon("newsletter.svg") },
+        { label: "Journals", href: joinUrl(webappBase, "/journals"), iconSrc: icon("journal.png") },
+        { label: "Events", href: joinUrl(webappBase, "/events"), iconSrc: icon("event.png") },
+        { label: "Reports", href: joinUrl(webappBase, "/reports"), iconSrc: icon("report.png") },
+        { label: "Surveys", href: joinUrl(webappBase, "/surveys"), iconSrc: icon("survey.png") },
+        {
+          label: formsLabel,
+          href: formsUrl || joinUrl(webappBase, "/forms"),
+          iconSrc: (settings.forms_icon_url || "").trim() || icon("default.svg"),
+        },
+      ],
+    },
+    {
+      label: "DIRECTORY",
+      items: [
+        { label: "Members", href: joinUrl(webappBase, "/board-staff"), iconSrc: icon("members.png") },
+        { label: "Contacts", href: joinUrl(webappBase, "/contacts"), iconSrc: icon("contact.png") },
+        {
+          label: "Destination",
+          href: joinUrl(webappBase, "/destinations"),
+          iconSrc: icon("destination.png"),
+        },
+      ],
+    },
+    {
+      label: "RESOURCES",
+      items: [
+        { label: "Documents", href: joinUrl(webappBase, "/documents"), iconSrc: icon("document.png") },
+        { label: "Deals & Discounts", href: joinUrl(webappBase, "/deals"), iconSrc: icon("deals.svg") },
+      ],
+    },
+    {
+      label: "COMMUNITY",
+      items: [{ label: "Community", href: "/latest", iconSrc: icon("chat.svg"), activeMatch: "community" }],
+    },
+  ].map((group) => ({
+    ...group,
+    items: group.items.filter((item) => item.href && !item.href.endsWith("/icons/nav/")),
+  }));
+}
+
+function isProductItemActive(item, path) {
+  if (item.activeMatch === "community") {
+    return !path.startsWith("/admin");
+  }
+
+  try {
+    const itemUrl = new URL(item.href, window.location.origin);
+    return itemUrl.origin === window.location.origin && path === itemUrl.pathname;
+  } catch {
+    return false;
+  }
+}
+
 function ensureSidebarBrand() {
   const desktop = window.matchMedia("(min-width: 1000px)").matches;
   const body = document.body;
@@ -119,6 +216,100 @@ function ensureSidebarBrand() {
   });
 }
 
+function ensureProductNav() {
+  const body = document.body;
+  const enabled =
+    !!settings.match_webapp_sidebar &&
+    !body?.classList.contains("admin-interface") &&
+    body?.classList.contains("has-sidebar-page");
+
+  document
+    .querySelectorAll(".two-way-product-nav")
+    .forEach((node) => node.remove());
+
+  body?.classList.remove("two-way-product-nav-enabled");
+
+  if (!enabled) {
+    return;
+  }
+
+  const groups = getProductNavGroups();
+
+  if (!groups.length) {
+    return;
+  }
+
+  const sections = document.querySelectorAll(
+    ".sidebar-wrapper .sidebar-sections, .sidebar-container .sidebar-sections"
+  );
+  const currentPath = window.location.pathname;
+
+  sections.forEach((section) => {
+    const productNav = document.createElement("nav");
+    productNav.className = "two-way-product-nav";
+    productNav.setAttribute("aria-label", "2Way navigation");
+
+    groups.forEach((group) => {
+      if (!group.items.length) {
+        return;
+      }
+
+      const groupNode = document.createElement("section");
+      groupNode.className = "two-way-product-nav__group";
+
+      const label = document.createElement("p");
+      label.className = "two-way-product-nav__label";
+      label.textContent = group.label;
+      groupNode.appendChild(label);
+
+      const list = document.createElement("div");
+      list.className = "two-way-product-nav__items";
+
+      group.items.forEach((item) => {
+        const link = document.createElement("a");
+        link.className = "two-way-product-nav__link";
+        link.href = item.href;
+
+        if (isProductItemActive(item, currentPath)) {
+          link.classList.add("is-active");
+        }
+
+        const iconWrap = document.createElement("span");
+        iconWrap.className = "two-way-product-nav__icon";
+
+        const icon = document.createElement("img");
+        icon.className = "two-way-product-nav__icon-image";
+        icon.alt = "";
+        icon.src = item.iconSrc;
+        icon.loading = "lazy";
+
+        iconWrap.appendChild(icon);
+        link.appendChild(iconWrap);
+
+        const text = document.createElement("span");
+        text.className = "two-way-product-nav__text";
+        text.textContent = item.label;
+        link.appendChild(text);
+
+        list.appendChild(link);
+      });
+
+      groupNode.appendChild(list);
+      productNav.appendChild(groupNode);
+    });
+
+    const anchor = section.querySelector(".two-way-sidebar-brand");
+
+    if (anchor?.nextSibling) {
+      section.insertBefore(productNav, anchor.nextSibling);
+    } else {
+      section.appendChild(productNav);
+    }
+  });
+
+  body?.classList.add("two-way-product-nav-enabled");
+}
+
 function ensureHeaderContext() {
   const desktop = window.matchMedia("(min-width: 1000px)").matches;
   const body = document.body;
@@ -163,6 +354,7 @@ function ensureHeaderContext() {
 function refreshShell() {
   requestAnimationFrame(() => {
     ensureSidebarBrand();
+    ensureProductNav();
     ensureHeaderContext();
   });
 }
