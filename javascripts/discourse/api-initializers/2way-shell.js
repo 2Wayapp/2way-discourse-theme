@@ -20,7 +20,8 @@ function ensureSidebarBrand() {
     document.querySelector("#site-logo")?.getAttribute("src") ||
     "";
 
-  const sidebarLogo = settings.sidebar_logo_url || fallbackLogo;
+  const runtimeTheme = window.TwoWayTheme || {};
+  const sidebarLogo = runtimeTheme.sidebarLogoUrl || settings.sidebar_logo_url || fallbackLogo;
 
   sidebarSections.forEach((section) => {
     if (section.querySelector(".two-way-sidebar-brand")) {
@@ -32,7 +33,7 @@ function ensureSidebarBrand() {
     anchor.href = "/";
     anchor.setAttribute("aria-label", "2Way home");
 
-    if (!settings.sidebar_logo_url) {
+    if (!runtimeTheme.sidebarLogoUrl && !settings.sidebar_logo_url) {
       anchor.classList.add("two-way-sidebar-brand--filter");
     }
 
