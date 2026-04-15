@@ -79,16 +79,31 @@ html.anon .contents.body-page button.login-button {
 
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel,
 .two-way-product-nav-enabled:not(.admin-interface) .revamped.menu-panel.slide-in,
-.two-way-product-nav-enabled:not(.admin-interface) .sidebar-hamburger-dropdown {
+.two-way-product-nav-enabled:not(.admin-interface) .sidebar-hamburger-dropdown,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body-contents,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body-bottom {
   border-radius: 0 !important;
   box-shadow: none !important;
   overflow: hidden;
+}
+
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel::before,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel::after,
+.two-way-product-nav-enabled:not(.admin-interface) .revamped.menu-panel.slide-in::before,
+.two-way-product-nav-enabled:not(.admin-interface) .revamped.menu-panel.slide-in::after,
+.two-way-product-nav-enabled:not(.admin-interface) .sidebar-hamburger-dropdown::before,
+.two-way-product-nav-enabled:not(.admin-interface) .sidebar-hamburger-dropdown::after {
+  display: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel {
   width: 88vw !important;
   max-width: 20rem !important;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--two-way-sidebar-bg) !important;
 }
 
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel,
@@ -170,9 +185,11 @@ html.anon .contents.body-page button.login-button {
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .two-way-sidebar-footer {
   margin: auto -16px 0;
   padding-top: 0;
+  background: var(--two-way-sidebar-bg) !important;
 }
 
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .two-way-sidebar-footer__inner {
   min-height: 76px;
   padding: 1rem;
+  background: var(--two-way-sidebar-bg) !important;
 }
