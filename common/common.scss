@@ -1426,6 +1426,24 @@ html.anon .contents.body-page button.login-button .d-icon {
     max-width: none;
   }
 
+  body.has-sidebar-page .container.posts {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  body.has-sidebar-page .topic-navigation {
+    display: none;
+  }
+
+  body.has-sidebar-page .post-stream,
+  body.has-sidebar-page .topic-posts,
+  body.has-sidebar-page .container.posts > .post-stream,
+  body.has-sidebar-page .container.posts .topic-area {
+    width: 100%;
+    max-width: 100%;
+  }
+
   body.has-sidebar-page .topic-area {
     display: block;
     width: 100%;
