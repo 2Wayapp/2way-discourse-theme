@@ -1340,6 +1340,12 @@ html.anon .contents.body-page button.login-button .d-icon {
     justify-content: space-between;
   }
 
+  body.has-sidebar-page .d-header .extra-info-wrapper,
+  body.has-sidebar-page .d-header .topic-header-extra,
+  body.has-sidebar-page .d-header .title-wrapper {
+    display: none !important;
+  }
+
   body.has-sidebar-page .d-header .header-sidebar-toggle,
   body.has-sidebar-page .d-header .home-logo-wrapper-outlet,
   body.has-sidebar-page .d-header .before-header-panel-outlet,
@@ -1421,20 +1427,22 @@ html.anon .contents.body-page button.login-button .d-icon {
   }
 
   body.has-sidebar-page .topic-area {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 15.5rem;
-    gap: 1.5rem;
-    align-items: start;
+    display: block;
+    width: 100%;
+    max-width: none;
   }
 
   body.has-sidebar-page .topic-area .timeline-container {
-    width: auto;
-    min-width: 0;
+    display: none;
   }
 
   body.has-sidebar-page .topic-area .topic-post,
-  body.has-sidebar-page .topic-area .topic-map {
+  body.has-sidebar-page .topic-area .topic-map,
+  body.has-sidebar-page .topic-area .topic-navigation-outlet,
+  body.has-sidebar-page .topic-area .post-stream,
+  body.has-sidebar-page .topic-area .topic-posts {
     width: 100%;
+    max-width: none;
   }
 
   body.has-sidebar-page .topic-post {
@@ -1448,6 +1456,6 @@ html.anon .contents.body-page button.login-button .d-icon {
   }
 
   body.has-sidebar-page .topic-body {
-    padding-right: 1.5rem;
+    padding-right: 0;
   }
 }
