@@ -49,6 +49,8 @@
   --two-way-radius-sm: 8px;
   --two-way-radius-md: 12px;
   --two-way-radius-lg: 16px;
+  --two-way-btn-height-sm: 38px;
+  --two-way-btn-height-lg: 42px;
   --two-way-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --two-way-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --two-way-auth-pattern-dot:
@@ -242,24 +244,57 @@ a:focus {
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--two-way-btn-height-sm);
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--two-way-radius-sm);
   font-family: var(--two-way-font-sans);
   font-weight: 600;
+  box-shadow: none;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
 }
 
 .btn-default,
 .btn-flat,
-.btn-icon-text {
+.btn-icon-text,
+.select-kit.combo-box .select-kit-header,
+.select-kit.multi-select .select-kit-header,
+.select-kit.dropdown-select-box .dropdown-select-box-header,
+.list-controls .combo-box .combo-box-header,
+.select-kit.combo-box .combo-box-header {
   background: var(--two-way-surface);
+  border: 1px solid var(--two-way-border-light);
   border-color: var(--two-way-border-light);
   color: var(--two-way-text-primary);
+  box-shadow: none;
 }
 
 .btn-default:hover,
 .btn-flat:hover,
-.btn-icon-text:hover {
+.btn-icon-text:hover,
+.select-kit.combo-box .select-kit-header:hover,
+.select-kit.multi-select .select-kit-header:hover,
+.select-kit.dropdown-select-box .dropdown-select-box-header:hover,
+.list-controls .combo-box .combo-box-header:hover,
+.select-kit.combo-box .combo-box-header:hover {
   background: var(--two-way-surface-alt);
   border-color: var(--two-way-border);
   color: var(--two-way-text-primary);
+}
+
+.btn.no-text,
+.btn.btn-icon,
+.btn-icon-text.btn.no-text {
+  width: var(--two-way-btn-height-sm);
+  min-width: var(--two-way-btn-height-sm);
+  padding: 0;
+  border-radius: 999px;
 }
 
 input[type="text"],
@@ -301,6 +336,7 @@ select:focus,
   background: var(--two-way-primary-btn);
   border-color: var(--two-way-primary-btn);
   color: var(--two-way-primary-btn-text);
+  box-shadow: none;
 }
 
 .btn-primary:hover,
@@ -310,6 +346,12 @@ select:focus,
   background: var(--two-way-primary-btn-hover);
   border-color: var(--two-way-primary-btn-hover);
   color: var(--two-way-primary-btn-text);
+}
+
+.btn-primary .d-icon,
+.btn.btn-primary .d-icon,
+.create .d-icon {
+  color: currentColor;
 }
 
 .navigation-container,
@@ -333,13 +375,13 @@ select:focus,
 .nav-pills > li button,
 .list-controls .combo-box .combo-box-header,
 .select-kit.combo-box .combo-box-header {
-  min-height: 40px;
-  padding: 0.55rem 0.95rem;
+  min-height: var(--two-way-btn-height-sm);
+  padding: 0.5rem 0.95rem;
   background: var(--two-way-surface);
   border: 1px solid var(--two-way-border-light);
-  border-radius: 10px;
-  box-shadow: var(--two-way-shadow-sm);
-  color: var(--two-way-text-secondary);
+  border-radius: var(--two-way-radius-sm);
+  box-shadow: none;
+  color: var(--two-way-text-primary);
   font-weight: 600;
 }
 
@@ -541,10 +583,10 @@ select:focus,
 .nav-pills > li.active > a,
 .nav-pills > li > a.active,
 .nav-pills > li button.active {
-  background: var(--two-way-surface);
-  border-color: color-mix(in srgb, var(--two-way-primary-btn) 35%, white);
+  background: color-mix(in srgb, var(--two-way-primary-btn) 12%, white);
+  border-color: color-mix(in srgb, var(--two-way-primary-btn) 24%, white);
   color: var(--two-way-primary-btn-hover);
-  box-shadow: inset 0 0 0 1px rgba(51, 92, 129, 0.08);
+  box-shadow: none;
 }
 
 .list-controls .combo-box .combo-box-header .selected-name,
