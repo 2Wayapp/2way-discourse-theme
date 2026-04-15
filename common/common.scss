@@ -49,6 +49,7 @@
   --two-way-radius-sm: 8px;
   --two-way-radius-md: 12px;
   --two-way-radius-lg: 16px;
+  --two-way-content-card-padding: 20px;
   --two-way-btn-height-sm: 38px;
   --two-way-btn-height-lg: 42px;
   --two-way-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -501,6 +502,16 @@ select:focus,
   background: var(--two-way-surface);
   border: 1px solid var(--two-way-border-light);
   box-shadow: var(--two-way-shadow-sm);
+}
+
+/* Shared inner spacing for account/profile content cards.
+   This keeps summary, notifications, messages, badges, and preferences
+   aligned without per-tab one-off padding overrides. */
+.user-content,
+.user-stream,
+.user-notifications-list,
+.user-preferences {
+  padding: var(--two-way-content-card-padding);
 }
 
 body.has-sidebar-page .topic-area > .topic-title,
