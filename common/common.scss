@@ -503,14 +503,44 @@ select:focus,
   box-shadow: var(--two-way-shadow-sm);
 }
 
+.topic-title {
+  display: none;
+}
+
+.topic-post .post__row.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
 .topic-avatar,
 .topic-body {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
+.topic-avatar {
+  flex: 0 0 52px;
+  width: 52px;
+  padding-left: 1rem;
+}
+
 .topic-body {
+  float: none;
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
   background: transparent;
+}
+
+.topic-body .topic-meta-data,
+.topic-body .cooked,
+.topic-body .post-controls {
+  width: 100%;
+}
+
+.topic-body .cooked {
+  max-width: none;
 }
 
 .topic-timeline .timeline-controls > .topic-admin-menu-trigger,
@@ -532,6 +562,104 @@ select:focus,
 .topic-map__contents,
 .topic-map section {
   color: var(--two-way-text-secondary);
+}
+
+.post-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.post-controls .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post-controls .btn {
+  opacity: 1;
+}
+
+.post-controls .btn.btn-flat,
+.post-controls .btn.btn-default {
+  background: var(--two-way-surface);
+  border-color: var(--two-way-border-light);
+  color: var(--two-way-text-secondary);
+}
+
+.post-controls .btn.btn-flat:hover,
+.post-controls .btn.btn-default:hover {
+  background: var(--two-way-surface-alt);
+  border-color: var(--two-way-border);
+  color: var(--two-way-text-primary);
+}
+
+.post-controls .btn.create,
+.post-controls .btn.reply {
+  background: var(--two-way-primary-btn);
+  border-color: var(--two-way-primary-btn);
+  color: var(--two-way-primary-btn-text);
+}
+
+.post-controls .btn.create:hover,
+.post-controls .btn.reply:hover,
+.post-controls .btn.create:focus,
+.post-controls .btn.reply:focus {
+  background: var(--two-way-primary-btn-hover);
+  border-color: var(--two-way-primary-btn-hover);
+  color: var(--two-way-primary-btn-text);
+}
+
+.post-controls .btn.create.fade-out,
+.post-controls .btn.reply.fade-out {
+  opacity: 1;
+}
+
+.post-controls .btn .d-icon,
+.topic-footer-main-buttons .btn .d-icon,
+.topic-notifications-button .btn .d-icon {
+  color: currentColor;
+}
+
+.topic-footer-main-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.topic-footer-main-buttons__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topic-notifications-button.notifications-button-footer {
+  margin-top: 0.875rem;
+}
+
+.topic-notifications-button.notifications-button-footer .reason {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  color: var(--two-way-text-secondary);
+  line-height: 1.5;
+}
+
+.topic-notifications-button.notifications-button-footer .text {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.topic-notifications-button .topic-notifications-tracking {
+  white-space: nowrap;
 }
 
 .composer-popup,
