@@ -49,8 +49,11 @@
   --two-way-radius-sm: 8px;
   --two-way-radius-md: 12px;
   --two-way-radius-lg: 16px;
-  --two-way-content-card-padding: 20px;
-  --two-way-popover-card-padding: 20px;
+  --two-way-surface-padding-sm: 12px;
+  --two-way-surface-padding-md: 16px;
+  --two-way-surface-padding-lg: 20px;
+  --two-way-content-card-padding: var(--two-way-surface-padding-lg);
+  --two-way-popover-card-padding: var(--two-way-surface-padding-md);
   --two-way-btn-height-sm: 38px;
   --two-way-btn-height-lg: 42px;
   --two-way-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -505,6 +508,26 @@ select:focus,
   box-shadow: var(--two-way-shadow-sm);
 }
 
+/* Shared inner spacing for surface families.
+   Keep these grouped by surface type so spacing can be tuned centrally. */
+.small-action,
+.post-notice,
+.reviewable {
+  padding: var(--two-way-surface-padding-md);
+}
+
+.search-menu .results,
+.search-menu-container .search-menu,
+.menu-panel,
+.modal-inner-container,
+.composer-fields,
+.composer-popup,
+.timeline-container .topic-timeline,
+.fk-d-menu,
+.fk-dropdown-menu {
+  padding: var(--two-way-surface-padding-md);
+}
+
 /* Shared inner spacing for account/profile content cards.
    This keeps summary, notifications, messages, badges, and preferences
    aligned without per-tab one-off padding overrides. */
@@ -526,18 +549,19 @@ body.has-sidebar-page .topic-above-post-stream .topic-title {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
+  padding: var(--two-way-surface-padding-lg);
 }
 
 .topic-avatar,
 .topic-body {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .topic-avatar {
   flex: 0 0 52px;
   width: 52px;
-  padding-left: 1rem;
+  padding-left: 0;
 }
 
 .topic-body {
@@ -577,6 +601,10 @@ body.has-sidebar-page .topic-above-post-stream .topic-title {
 .topic-map__contents,
 .topic-map section {
   color: var(--two-way-text-secondary);
+}
+
+.topic-map {
+  padding: var(--two-way-surface-padding-md) var(--two-way-surface-padding-lg);
 }
 
 body.two-way-topic-actions-enhanced .topic-post .topic-map {
