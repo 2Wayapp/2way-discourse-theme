@@ -471,6 +471,11 @@ select:focus,
   background: transparent;
 }
 
+.topic-timeline .timeline-controls > .topic-admin-menu-trigger,
+.timeline-container .topic-timeline .timeline-controls > .topic-admin-menu-trigger {
+  display: none !important;
+}
+
 .cooked {
   color: var(--two-way-text-primary);
   line-height: 1.7;
@@ -1361,5 +1366,36 @@ html.anon .contents.body-page button.login-button .d-icon {
   body.has-sidebar-page .discovery-list-container,
   body.has-sidebar-page .discovery-container {
     max-width: none;
+  }
+
+  body.has-sidebar-page .topic-area {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 15.5rem;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  body.has-sidebar-page .topic-area .timeline-container {
+    width: auto;
+    min-width: 0;
+  }
+
+  body.has-sidebar-page .topic-area .topic-post,
+  body.has-sidebar-page .topic-area .topic-map {
+    width: 100%;
+  }
+
+  body.has-sidebar-page .topic-post {
+    overflow: hidden;
+  }
+
+  body.has-sidebar-page .topic-avatar,
+  body.has-sidebar-page .topic-body {
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+  }
+
+  body.has-sidebar-page .topic-body {
+    padding-right: 1.5rem;
   }
 }
