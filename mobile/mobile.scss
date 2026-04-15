@@ -95,16 +95,24 @@ html.anon .contents.body-page button.login-button {
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body,
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body-contents,
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body-bottom,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body-bottom *,
 .two-way-product-nav-enabled:not(.admin-interface) .sidebar-hamburger-dropdown,
 .two-way-product-nav-enabled:not(.admin-interface) .sidebar-hamburger-dropdown > * {
   background: var(--two-way-sidebar-bg) !important;
+}
+
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .panel-body-contents {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-sections {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 16px 24px;
+  padding: 0 16px 0;
 }
 
 .two-way-mobile-drawer-header {
@@ -160,7 +168,7 @@ html.anon .contents.body-page button.login-button {
 }
 
 .two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .two-way-sidebar-footer {
-  margin: auto -16px -24px;
+  margin: auto -16px 0;
   padding-top: 0;
 }
 
