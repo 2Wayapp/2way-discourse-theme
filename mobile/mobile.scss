@@ -1,25 +1,37 @@
 /* Mobile-specific parity adjustments */
 
 .d-header {
-  min-height: 56px;
+  min-height: 64px;
+  background: var(--two-way-sidebar-header-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: none;
 }
 
 .wrap {
-  padding-left: 0.875rem;
-  padding-right: 0.875rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.d-header-wrap,
+.d-header .wrap {
+  background: var(--two-way-sidebar-header-bg);
 }
 
 .d-header .wrap,
 .d-header .contents {
-  min-height: 56px;
+  min-height: 64px;
 }
 
 .d-header .title {
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .d-header .home-logo-wrapper-outlet {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-width: 0;
 }
 
@@ -27,18 +39,67 @@
   display: inline-flex;
   align-items: center;
   min-width: 0;
+  max-width: none;
 }
 
 .d-header #site-logo.logo-mobile,
-.d-header .logo-mobile {
-  width: min(120px, 34vw);
-  max-width: 120px;
+.d-header .logo-mobile,
+.d-header #site-logo {
+  width: min(132px, 42vw);
+  max-width: 132px;
   max-height: 34px;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .d-header .panel > ul {
   gap: 0.375rem;
+}
+
+.d-header .title,
+.d-header .title a,
+.d-header .icon,
+.d-header .icon svg,
+.d-header .header-link,
+.d-header .panel .d-icon,
+.d-header .panel svg {
+  color: #fff;
+}
+
+.d-header .panel > ul > li > a,
+.d-header .panel > ul > li > button,
+.d-header-icons .icon,
+.header-dropdown-toggle,
+.d-header .panel .btn-flat {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0.375rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(248, 250, 252, 0.92);
+}
+
+.d-header .panel > ul > li > a:hover,
+.d-header .panel > ul > li > button:hover,
+.d-header-icons .icon:hover,
+.header-dropdown-toggle:hover,
+.d-header .panel .btn-flat:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: transparent;
+  color: #fff;
+}
+
+.d-header button[aria-label="Navigation menu"],
+.d-header .header-sidebar-toggle,
+.d-header .btn-sidebar-toggle {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  min-height: 40px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .btn,
