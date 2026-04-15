@@ -19,6 +19,7 @@ function enhanceTopicActions() {
   topicMap.appendChild(postControls);
 
   const selectorsToMove = [
+    ".share-and-invite",
     ".bookmark-menu__trigger",
     ".flag-topic",
     ".topic-admin-menu-trigger",
