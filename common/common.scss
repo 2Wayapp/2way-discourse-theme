@@ -673,7 +673,7 @@ body.two-way-topic-actions-enhanced .topic-post .topic-map .post-controls .actio
 }
 
 body.two-way-topic-actions-enhanced .topic-footer-main-buttons {
-  display: none;
+  display: none !important;
 }
 
 .topic-notifications-button.notifications-button-footer {
