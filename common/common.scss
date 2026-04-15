@@ -52,10 +52,14 @@
   --two-way-surface-padding-sm: 12px;
   --two-way-surface-padding-md: 16px;
   --two-way-surface-padding-lg: 20px;
+  --two-way-surface-padding-xl: 24px;
   --two-way-content-card-padding: var(--two-way-surface-padding-lg);
   --two-way-popover-card-padding: var(--two-way-surface-padding-md);
   --two-way-btn-height-sm: 38px;
   --two-way-btn-height-lg: 42px;
+  --two-way-control-gap: 0.5rem;
+  --two-way-control-padding-x: 1rem;
+  --two-way-control-padding-y: 0.5rem;
   --two-way-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --two-way-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --two-way-auth-pattern-dot:
@@ -252,12 +256,15 @@ a:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--two-way-control-gap);
   min-height: var(--two-way-btn-height-sm);
-  padding: 0.5rem 1rem;
+  padding: var(--two-way-control-padding-y) var(--two-way-control-padding-x);
   border: 1px solid transparent;
   border-radius: var(--two-way-radius-sm);
   font-family: var(--two-way-font-sans);
+  font-size: 0.95rem;
   font-weight: 600;
+  line-height: 1.2;
   box-shadow: none;
   transition:
     background-color 140ms ease,
@@ -381,13 +388,15 @@ select:focus,
 .list-controls .combo-box .combo-box-header,
 .select-kit.combo-box .combo-box-header {
   min-height: var(--two-way-btn-height-sm);
-  padding: 0.5rem 0.95rem;
+  padding: var(--two-way-control-padding-y) var(--two-way-control-padding-x);
   background: var(--two-way-surface);
   border: 1px solid var(--two-way-border-light);
   border-radius: var(--two-way-radius-sm);
   box-shadow: none;
   color: var(--two-way-text-primary);
+  font-size: 0.95rem;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .nav-pills > li > a:hover,
@@ -452,27 +461,34 @@ select:focus,
 }
 
 .topic-list tbody tr.topic-list-item td,
-.topic-list tbody tr.latest-topic-list-item td {
+.topic-list tbody tr.latest-topic-list-item td,
+.category-list tbody tr.category-list-item td,
+.category-list tbody tr.subcategory-list-item td {
   background: var(--two-way-surface);
   border-top: 1px solid var(--two-way-border-light);
   border-bottom: 1px solid var(--two-way-border-light);
   box-shadow: none;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: var(--two-way-surface-padding-md);
+  padding-bottom: var(--two-way-surface-padding-md);
+  vertical-align: middle;
 }
 
 .topic-list tbody tr.topic-list-item td:first-child,
-.topic-list tbody tr.latest-topic-list-item td:first-child {
+.topic-list tbody tr.latest-topic-list-item td:first-child,
+.category-list tbody tr.category-list-item td:first-child,
+.category-list tbody tr.subcategory-list-item td:first-child {
   border-left: 1px solid var(--two-way-border-light);
   border-radius: var(--two-way-radius-md) 0 0 var(--two-way-radius-md);
-  padding-left: 1.15rem;
+  padding-left: var(--two-way-surface-padding-lg);
 }
 
 .topic-list tbody tr.topic-list-item td:last-child,
-.topic-list tbody tr.latest-topic-list-item td:last-child {
+.topic-list tbody tr.latest-topic-list-item td:last-child,
+.category-list tbody tr.category-list-item td:last-child,
+.category-list tbody tr.subcategory-list-item td:last-child {
   border-right: 1px solid var(--two-way-border-light);
   border-radius: 0 var(--two-way-radius-md) var(--two-way-radius-md) 0;
-  padding-right: 1.15rem;
+  padding-right: var(--two-way-surface-padding-lg);
 }
 
 .topic-list .main-link a.title {
@@ -512,7 +528,8 @@ select:focus,
    Keep these grouped by surface type so spacing can be tuned centrally. */
 .small-action,
 .post-notice,
-.reviewable {
+.reviewable,
+.user-stream .item {
   padding: var(--two-way-surface-padding-md);
 }
 
@@ -578,8 +595,29 @@ body.has-sidebar-page .topic-above-post-stream .topic-title {
   width: 100%;
 }
 
+.topic-body .topic-meta-data {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--two-way-surface-padding-sm);
+}
+
+.topic-body .topic-meta-data .topic-post-info,
+.topic-body .topic-meta-data .post-info {
+  margin-left: auto;
+}
+
 .topic-body .cooked {
   max-width: none;
+}
+
+.topic-body .cooked > :first-child {
+  margin-top: 0;
+}
+
+.topic-body .cooked > :last-child {
+  margin-bottom: 0;
 }
 
 .topic-timeline .timeline-controls > .topic-admin-menu-trigger,
@@ -709,7 +747,7 @@ body.two-way-topic-actions-enhanced .topic-post .topic-map .post-controls .actio
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--two-way-control-gap);
 }
 
 body.two-way-topic-actions-enhanced .topic-footer-main-buttons {
@@ -846,6 +884,13 @@ body.two-way-topic-actions-enhanced .topic-footer-main-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+}
+
+.list-controls .nav-pills,
+.user-navigation .nav-pills,
+.group-navigation .nav-pills,
+.admin-controls .nav-pills {
+  gap: var(--two-way-control-gap);
 }
 
 .category-breadcrumb .select-kit,
