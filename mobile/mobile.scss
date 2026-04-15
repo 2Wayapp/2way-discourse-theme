@@ -130,6 +130,21 @@ html.anon .contents.body-page button.login-button {
   padding: 0 16px 0;
 }
 
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-footer-container,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-footer-wrapper {
+  background: var(--two-way-sidebar-bg) !important;
+}
+
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-footer-container::before,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-footer-container::after,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-footer-wrapper::before,
+.two-way-product-nav-enabled:not(.admin-interface) .hamburger-panel .sidebar-footer-wrapper::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 .two-way-mobile-drawer-header {
   display: flex;
   align-items: center;
